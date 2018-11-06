@@ -26,3 +26,7 @@ def home(request):
 
 def about(request):
     return render(request, 'cnisblog/about.html', {'title': 'About'})
+
+
+def signup(request):
+    return render(request, 'cnisblog/signup.html')

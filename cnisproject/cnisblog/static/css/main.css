@@ -1,0 +1,16 @@
+.welcome {
+    background: url('/static/images/sectiononebg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    height: 500px;
+    color: white;
+}
+
+.about {
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.contactus {
+}
+

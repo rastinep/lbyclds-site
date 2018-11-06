@@ -1,22 +1,91 @@
 {% extends "cnisblog/base.html" %}
+{% load static %}
 
 {% block content %}
-    {% for post in posts %}
-        <div class="row">
-            <div class="col s12">
-              <div class="card light-blue darken-4">
-                <div class="card-content white-text">
-                  <span class="card-title">{{ post.title }}</span>
-                  <p>{{ post.content }}</p>
-                  <p>By {{ post.author }} on {{ post.date_posted }}</p>
-                </div>
-                <div class="card-action">
-                  <a href="#" class="yellow-text text-darken-1">See More</a>
-                </div>
-              </div>
+  <div class="welcome center">
+    <h2 style="margin: 0 0 50px 0; padding-top: 150px; font-weight: bold;">Welcome to CNIS!</h2>
+    <p>A website for Lab in Cloud Computing that focuses on Google API integration</p>
+  </div>
+
+  <section class="about">
+    <div class="row container">
+      <div class="col s4">
+        <img src="{% static 'images/dani.jpg' %}" class="circle responsive-img" width="250px">
+      </div>
+      <div class="col s8">
+        <h2 style="font-weight: bold">Daniela Javier</h2>
+        <p>I am a 115 student and on my Senior year as a Computer Science major</p>
+      </div>
+    </div>
+    <div class="row container right-align">
+      <div class="col s8">
+        <h2 style="font-weight: bold">Rastine Pinlac</h2>
+        <p>I am a 115 student and on my Senior year as a Computer Science major</p>
+      </div>
+      <div class="col s4">
+        <img src="{% static 'images/rastine.jpg' %}" class="circle responsive-img" width="250px">
+      </div>
+    </div>
+  </section>
+
+  <section class="contactus" style="margin-bottom: 0">
+    <div class="row" style="margin-bottom: 0;">
+      <div class="col s6">
+        <div id="map" style="height: 100%;"></div>
+      </div>
+      <div class="col s6 " style="background-color: #212121; color: white; padding: 40px">
+        <h2 style="text-align: center;">Contact Us</h2>
+        <form>
+          <fieldset style="border: none;">
+            <div class="input-field">
+              <input id="email" type="email" class="validate">
+              <label for="email">Email</label>
             </div>
+            <div class="input-field">
+              <textarea id="textarea1" class="materialize-textarea"></textarea>
+              <label for="textarea1">Comments/Suggestions</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top: 40px;">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="setappointment" style="background-color: #212121; color: white; padding: 40px; style="margin-top: 0"">
+    <div class="container">
+      <h2 style="text-align: center;">Set an appointment</h2>
+      <form>
+        <fieldset style="border: none;">
+          <div class="input-field">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
           </div>
-    {% endfor %}
+          <div class="input-field">
+            <input id="date" type="date" class="validate">
+            <label for="date">Date</label>
+          </div>
+          <div class="input-field">
+            <input id="time" type="time" class="validate">
+            <label for="time">Time</label>
+          </div>
+          <div class="row center">
+            <button class="btn btn-large waves-effect waves-light red" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+
+
 
 {% endblock content %}
+
+
 
