@@ -1,16 +1,18 @@
+.headnav a:hover{
+    background-color: white;
+    color: #212121;
+}
+
 .welcome {
     background: url('/static/images/sectiononebg.jpg');
     background-size: cover;
-    background-position: bottom;
     height: 500px;
     color: white;
 }
 
-.about {
-    padding-top: 80px;
-    padding-bottom: 50px;
+.aboutus {
+    background: url('/static/images/review-bg.jpg');
+    background-size: cover;
+    height: 500px;
+    color: white;
 }
-
-.contactus {
-}
-

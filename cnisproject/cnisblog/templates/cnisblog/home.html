@@ -3,86 +3,103 @@
 
 {% block content %}
   <div class="welcome center">
-    <h2 style="margin: 0 0 50px 0; padding-top: 150px; font-weight: bold;">Welcome to CNIS!</h2>
-    <p>A website for Lab in Cloud Computing that focuses on Google API integration</p>
+    <h2 style="margin: 0 0 50px 0; padding-top: 150px; font-weight: bold;">Hikers Turf</h2>
+    <p>Go out, have fun, explore the horizon!</p>
+    {% if user.is_authenticated %}
+    <div class="row container center" style="margin-top: 40px;">
+      <a href="#modal1" class="btn btn-small waves-effect waves-light red modal-trigger">
+        Book A Hike <i class="material-icons right">event</i>
+      </a>
+    </div>
+    {% endif %}
   </div>
 
-  <section class="about">
-    <div class="row container">
-      <div class="col s4">
-        <img src="{% static 'images/dani.jpg' %}" class="circle responsive-img" width="250px">
-      </div>
-      <div class="col s8">
-        <h2 style="font-weight: bold">Daniela Javier</h2>
-        <p>I am a 115 student and on my Senior year as a Computer Science major</p>
-      </div>
+  <section class="yearinasnap" style="padding-top: 80px; padding-bottom: 80px; margin: 0;">
+    <div class="row container center">
+      <h2>Year In A Snap</h2>
     </div>
-    <div class="row container right-align">
-      <div class="col s8">
-        <h2 style="font-weight: bold">Rastine Pinlac</h2>
-        <p>I am a 115 student and on my Senior year as a Computer Science major</p>
+    <div class="row container center">
+      <div class="col s4">
+        <h3>2004</h3>
+        <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat.</p>
       </div>
       <div class="col s4">
-        <img src="{% static 'images/rastine.jpg' %}" class="circle responsive-img" width="250px">
+        <h3>2008</h3>
+        <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat.</p>
+      </div>
+      <div class="col s4">
+        <h3>2014</h3>
+        <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat.</p>
       </div>
     </div>
   </section>
 
-  <section class="contactus" style="margin-bottom: 0">
-    <div class="row" style="margin-bottom: 0;">
+  <section class="aboutus" style="padding: 80px 0 80px 0">
+    <div class="row container center">
+      <h2>About us</h2>
+    </div>
+    <div class="row container center">
       <div class="col s6">
-        <div id="map" style="height: 100%;"></div>
+        In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat. Stpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat. Maecenas sollicitudin est in libero pretium.
+      </div>
+      <div class="col s6">
+        In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat. Stpat sem. Vivamus rutrum dui fermentum eros hendrerit, id lobortis leo volutpat. Maecenas sollicitudin est in libero pretium.
+      </div>
+    </div>
+  </section>
+
+  <section class="contactus" style="margin: 0;">
+    <div class="row" style="margin: 0;">
+      <div class="col s6" style="padding: 0;">
+        <div id="map" class="map-canvas" style="height: 535.7px; padding: 0; margin: 0;"></div>
       </div>
       <div class="col s6 " style="background-color: #212121; color: white; padding: 40px">
         <h2 style="text-align: center;">Contact Us</h2>
-        <form>
-          <fieldset style="border: none;">
-            <div class="input-field">
-              <input id="email" type="email" class="validate">
-              <label for="email">Email</label>
-            </div>
-            <div class="input-field">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
-              <label for="textarea1">Comments/Suggestions</label>
-            </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top: 40px;">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </fieldset>
-        </form>
+        <div>
+            <form method = "POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div name = "user">
+                        {{ field.label }}<br>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button type = "submit" class = "btn btn-dark">Send</button>
+            </form>
       </div>
     </div>
   </section>
 
-  <section class="setappointment" style="background-color: #212121; color: white; padding: 40px; style="margin-top: 0"">
-    <div class="container">
-      <h2 style="text-align: center;">Set an appointment</h2>
-      <form>
-        <fieldset style="border: none;">
-          <div class="input-field">
-            <input id="email" type="email" class="validate">
-            <label for="email">Email</label>
-          </div>
-          <div class="input-field">
-            <input id="date" type="date" class="validate">
-            <label for="date">Date</label>
-          </div>
-          <div class="input-field">
-            <input id="time" type="time" class="validate">
-            <label for="time">Time</label>
-          </div>
-          <div class="row center">
-            <button class="btn btn-large waves-effect waves-light red" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
+  {% if user.is_authenticated %}
+    <div class="modal modal-fixed-footer" id="modal1">
+      <form class="form" role="form" method="POST">
+        {% csrf_token %}
+        <div class="modal-content center">
+          <h2>Book A Trip</h2>
+            <div class="row container">
+              <div class="input-field col s12">
+                <select name="hike">
+                  <option value="" disabled selected hidden="">Pick a hike</option>
+                  <option value="Masungi">Masungi GeoReserve</option>
+                  <option value="Apo">Apo Hiking Society</option>
+                  <option value="Everest">Everest Club Hike</option>
+                </select>
+              </div>
+              <div class="col s12">
+                <input class="datepicker" name="datepick">
+              </div>
+              <div class="col s12">
+                <input class="timepicker" name="timepick">
+              </div>
+            </div>
 
-        </fieldset>
-      </form>
+        </div>
+        <div class="modal-footer">
+          <input name="confirm" type="submit" class="close waves-effect waves-green btn-flat">
+        </div>
+       </form>
     </div>
-  </section>
-
-
+  {% endif %}
 
 
 {% endblock content %}
