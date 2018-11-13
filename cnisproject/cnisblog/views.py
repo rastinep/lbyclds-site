@@ -64,14 +64,14 @@ def signup(request):
     return render(request, 'cnisblog/signup.html')
 
 
-SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
+SCOPES = ['https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.send']
 
 
 def gmail():
-    store = file.Storage('token.json')
+    store = file.Storage(settings.TOKEN_JSON)
     creds = store.get()
     if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('cnisblog/credentials.json', SCOPES)
+        flow = client.flow_from_clientsecrets(settings.GOOGLE_CLIENT_JSON, SCOPES)
         creds = tools.run_flow(flow, store)
     service = build('gmail', 'v1', http=creds.authorize(Http()))
 
@@ -87,7 +87,7 @@ def create_message(sender, to, subject, message_text):
     message['to'] = to
     message['from'] = 'rastinebpinlac@gmail.com'
     message['subject'] = subject
-    return {'raw': message.as_string()}
+    return {'raw': base64.urlsafe_b64encode(message.as_string())}
 
 
 def send_message(service, user_id, message):
