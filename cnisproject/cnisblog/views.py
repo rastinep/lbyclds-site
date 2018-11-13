@@ -37,15 +37,19 @@ posts = [
 def home(request):
     form = emailForm(request.POST or None)
     err_msg = "Error!!!"
+    
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.user
 
     if form.is_valid():
         subject = form.cleaned_data['subject']
         message_text = form.cleaned_data['message_text']
         to = form.cleaned_data['to']
-        sender = form.cleaned_data['sender']
+        sender = username.email
         msg = create_message(sender, to, subject, message_text)
         srvc = gmail()
-        send_message(srvc, 1, message)
+        send_message(srvc, , message)
 
     create_event(request)
 
