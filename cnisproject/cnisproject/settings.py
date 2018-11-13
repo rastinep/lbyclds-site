@@ -137,3 +137,5 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+GOOGLE_CLIENT_JSON = 'credentials.json'
+TOKEN_JSON = 'token.json'
