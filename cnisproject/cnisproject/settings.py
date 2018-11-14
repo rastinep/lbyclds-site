@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rastinebpinlac@gmail.com'
+EMAIL_HOST_PASSWORD = 'Puswood.15'
+EMAIL_PORT = 587
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -137,5 +143,3 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-GOOGLE_CLIENT_JSON = 'credentials.json'
-TOKEN_JSON = 'token.json'

@@ -37,19 +37,15 @@ posts = [
 def home(request):
     form = emailForm(request.POST or None)
     err_msg = "Error!!!"
-    
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            username = request.user
 
     if form.is_valid():
         subject = form.cleaned_data['subject']
         message_text = form.cleaned_data['message_text']
         to = form.cleaned_data['to']
-        sender = username.email
+        sender = form.cleaned_data['sender']
         msg = create_message(sender, to, subject, message_text)
         srvc = gmail()
-        send_message(srvc, , message)
+        send_message(srvc, 1, message)
 
     create_event(request)
 
@@ -68,39 +64,7 @@ def signup(request):
     return render(request, 'cnisblog/signup.html')
 
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.send']
-
-
-def gmail():
-    store = file.Storage(settings.TOKEN_JSON)
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets(settings.GOOGLE_CLIENT_JSON, SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('gmail', 'v1', http=creds.authorize(Http()))
-
-    # Call the Gmail API
-    #results = service.users().labels().list(userId='me').execute()
-    #labels = results.get('labels', [])
-
-    return service
-
-
-def create_message(sender, to, subject, message_text):
-    message = MIMEText(message_text)
-    message['to'] = to
-    message['from'] = 'rastinebpinlac@gmail.com'
-    message['subject'] = subject
-    return {'raw': base64.urlsafe_b64encode(message.as_string())}
-
-
-def send_message(service, user_id, message):
-    try:
-        message = (service.users().messages().send(userId=user_id, body=message).execute())
-        print('Message Id: %s' % message['id'])
-        return message
-    except errors.HttpError as error:
-        print('An error occurred: %s' % error)
+SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
 
 
 def build_service():
@@ -139,7 +103,7 @@ def create_event(request):
             from_email = settings.EMAIL_HOST_USER
             to_list = [username.email]
 
-            send_mail(subject, message, from_email, to_list, fail_silently=True)
+            send_mail(subject, message, from_email, to_list, fail_silently=False)
 
             # Calendar
             service = build_service()
